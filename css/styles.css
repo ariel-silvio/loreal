@@ -187,7 +187,7 @@ table.inits tr.drow dl{margin:0;display:grid;grid-template-columns:repeat(auto-f
 @media(min-width:1024px){table.inits tr.drow dl{grid-template-columns:1.2fr 2.2fr 1fr 1fr 1.2fr}table.inits tr.drow dl > div:nth-child(6){grid-column:1 / -1}}
 table.inits tr.drow dt{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:500}
 table.inits tr.drow dd{margin:0;font-size:14px}
-table.rv td{padding:7px 12px;font-size:14px}
+table.rv td{padding:5px 12px;font-size:14px;line-height:1.35}
 table.rv td.when{white-space:nowrap;font-weight:600}
 table.rv td.when b{color:var(--gold-text)}
 .drivers{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
@@ -261,6 +261,14 @@ tr.us .ib i{background:var(--h1)}
 .member span{font-size:12px;color:var(--muted);line-height:1.35}
 .sources ol{margin:0;padding-left:20px;display:grid;gap:6px;font-size:15px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* brand line, disclaimer, AI label */
+.tagline{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(20px,2.6vh,24px);color:var(--gold-text);margin:0}
+.ask .tagline{color:var(--gold);font-size:20px;opacity:1}
+.disc{font-size:11px;line-height:1.3;color:var(--muted);margin:0;padding-top:6px;border-top:1px solid var(--hairline);letter-spacing:.02em}
+.scimg{margin:0;position:relative;min-width:0}
+.scimg img{display:block;width:100%;height:100%;object-fit:cover;min-height:200px;max-height:300px}
+.scimg figcaption{position:absolute;left:8px;bottom:8px;background:rgba(17,17,17,.78);color:#f7f3ec;font-size:11px;line-height:1.3;padding:4px 8px}
 
 /* save as PDF button */
 .utils{display:flex;flex-wrap:wrap;gap:6px 18px;border-top:1px solid var(--hairline);padding-top:10px}

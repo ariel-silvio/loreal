@@ -202,8 +202,8 @@ DATA.peers.slice().sort((a, b) => b.rd / b.rev - a.rd / a.rev).forEach((p) => {
   $("#peerrows").appendChild(tr);
 });
 
-/* fit: on screens 768px and wider, scale the open page down (to 75% at most) so it fits above the pager */
-const MINZ = .75;
+/* fit: on screens 768px and wider, scale the open page down (to 72% at most) so it fits above the pager */
+const MINZ = .72;
 function fit() {
   const p = panels[cur]; if (!p) return;
   p.style.zoom = ""; p.style.width = ""; p.style.maxWidth = "";
@@ -236,6 +236,10 @@ document.querySelectorAll(".themebtn").forEach((b) => b.addEventListener("click"
 }));
 darkOS.addEventListener("change", syncTheme);
 syncTheme();
+
+/* the disclaimer goes at the foot of every slide, so a single forwarded page or PDF page still carries it */
+(() => { const d = $("#disc"); if (!d) return;
+  document.querySelectorAll(".panel").forEach((p) => { const c = d.cloneNode(true); c.removeAttribute("id"); c.hidden = false; p.appendChild(c); }); })();
 
 /* panels: one at a time, routed by the address hash */
 const panels = [...document.querySelectorAll(".panel")];
