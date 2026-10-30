@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Innovation Budget 2027 · Team D</title>
 <meta name="description" content="Team D's innovation budget request to the CEO of L'Oréal Groupe for 2027.">
+<script>try{const t=localStorage.getItem("td-theme");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Jost:wght@400;500;600&display=swap">
@@ -70,6 +71,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .chapters .act{align-self:center;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-text);padding:0 4px 0 12px;white-space:nowrap}
 .chapters .act:first-child{padding-left:0}
 .navfoot{display:none}
+.themebtn{display:inline-flex;align-items:center;gap:8px;background:none;border:1px solid var(--hairline);padding:8px 12px;cursor:pointer;font-size:13px;color:var(--ink);justify-self:start}
+.themebtn:hover{border-color:var(--ink)}
+.themebtn i{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--ink);background:linear-gradient(90deg,var(--ink) 50%,transparent 50%);flex:none}
+.topcta.themebtn{padding:8px 10px}
 .cta{white-space:nowrap;font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;background:var(--ink);color:var(--paper);padding:9px 12px}
 
 /* navigation: left sidebar on desktop */
@@ -303,9 +308,11 @@ tr.us .ib i{background:var(--h1)}
       <a href="#sources"><b>11</b>Sources</a>
     </div>
     <div class="navfoot">
+      <button class="themebtn" type="button"><i aria-hidden="true"></i><span>Dark mode</span></button>
       <a class="cta" href="#decide">Decisions requested</a>
       <span class="note" style="font-size:12px">Use the arrow keys or the buttons below each page.</span>
     </div>
+    <button class="themebtn topcta" type="button" aria-label="Switch to dark mode"><i aria-hidden="true"></i></button>
     <a class="cta topcta" href="#decide">Decide</a>
   </div>
 </nav>
@@ -782,6 +789,25 @@ function fit() {
   apply(lo);
   if (ids[cur] === "portfolio") drawMatrix();
 }
+
+/* light / dark switch: follows the device until the reader chooses; the choice is remembered on this browser */
+const darkOS = matchMedia("(prefers-color-scheme: dark)");
+const theme = () => document.documentElement.dataset.theme || (darkOS.matches ? "dark" : "light");
+function syncTheme() {
+  const next = theme() === "dark" ? "light" : "dark", label = next === "dark" ? "Dark mode" : "Light mode";
+  document.querySelectorAll(".themebtn").forEach((b) => {
+    b.setAttribute("aria-label", "Switch to " + label.toLowerCase());
+    const t = b.querySelector("span"); if (t) t.textContent = label;
+  });
+}
+document.querySelectorAll(".themebtn").forEach((b) => b.addEventListener("click", () => {
+  const t = theme() === "dark" ? "light" : "dark";
+  document.documentElement.dataset.theme = t;
+  try { localStorage.setItem("td-theme", t); } catch (e) {}
+  syncTheme();
+}));
+darkOS.addEventListener("change", syncTheme);
+syncTheme();
 
 /* panels: one at a time, routed by the address hash */
 const panels = [...document.querySelectorAll(".panel")];
