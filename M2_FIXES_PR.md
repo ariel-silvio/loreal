@@ -1,5 +1,7 @@
 # M2 fixes: scenario wording, pilot tranches, budget note, sources, hedge, governance, AI disclosure
 
+> **Update:** `index.html` in this repo has since been replaced by the slide dashboard (it was `dashboard.html`). The fixes below describe the original portfolio page, kept in this repo's history at commit `b9baea8`.
+
 Base: `rebeccaf8/Loreal-Innovation-Portfolio-2035` @ `9480322` (`index.html`, still one file).
 
 ## Changes made
