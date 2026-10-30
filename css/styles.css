@@ -100,14 +100,14 @@ main{min-width:0;display:grid;grid-template-rows:1fr auto;min-height:calc(100vh 
 .phead h2::after{margin-top:clamp(8px,1.4vh,14px)!important}
 .phead h2::after{content:"";display:block;width:48px;height:2px;background:var(--gold);margin-top:14px}
 .phead .lead{font-size:clamp(16px,2.1vh,19px);line-height:1.45}
-.pager{position:sticky;bottom:0;z-index:10;background:var(--ivory);border-top:1px solid var(--hairline);display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding-block:8px max(8px,env(safe-area-inset-bottom,0px));max-width:1060px}
-.pager #prev{justify-self:start}
-.pager button{background:none;border:1px solid var(--hairline);padding:7px 14px;cursor:pointer;display:grid;gap:0;text-align:left;min-width:0}
+.pager{position:sticky;bottom:0;z-index:10;background:var(--ivory);border-top:1px solid var(--hairline);display:grid;--pbw:210px;grid-template-columns:var(--pbw) minmax(0,1fr) var(--pbw);align-items:center;gap:12px;padding-block:8px max(8px,env(safe-area-inset-bottom,0px));max-width:1060px}
+.pager #prev{justify-self:stretch}
+.pager button{background:none;border:1px solid var(--hairline);padding:7px 14px;cursor:pointer;display:grid;gap:0;text-align:left;min-width:0;width:100%}
 .pager button:hover{border-color:var(--ink)}
 .pager button[disabled]{visibility:hidden}
 .pager button span{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
 .pager button b{font-weight:500;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pager #next{justify-self:end;text-align:right;background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pager #next{justify-self:stretch;text-align:right;background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .pager #next span{color:var(--paper);opacity:.75}
 .pager .count{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 .pager .mid{display:grid;gap:2px;justify-items:center;text-align:center;min-width:0}
@@ -115,7 +115,7 @@ main{min-width:0;display:grid;grid-template-rows:1fr auto;min-height:calc(100vh 
 /* the notice sits under the page number on screen; on phones and in print it sits at the foot of each slide */
 .panel > .disc{display:none}
 @media(max-width:560px){.pager .mid .disc{display:none}.panel > .disc{display:block}}
-@media(max-width:560px){.pager button b{font-size:13px}.pager .count{font-size:12px}}
+@media(max-width:560px){.pager{--pbw:124px}.pager button{padding:7px 10px;align-content:start}.pager button b{font-size:13px;white-space:normal;line-height:1.2;height:2.4em;overflow:hidden}.pager .count{font-size:12px}}
 
 .card{background:var(--paper);border:1px solid var(--hairline);padding:var(--s6);display:grid;gap:12px;align-content:start;min-width:0}
 .card h3{font-family:var(--sans);font-size:17px;font-weight:600;line-height:1.3}
