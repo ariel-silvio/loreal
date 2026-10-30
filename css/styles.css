@@ -222,12 +222,16 @@ table.rv td.when b{color:var(--gold-text)}
 .verdict{font-size:15px;border-top:1px solid var(--hairline);padding-top:12px}
 .ok{color:var(--positive);font-weight:600}
 
-/* governance */
-.board{background:var(--ink);color:var(--paper);padding:var(--s6);display:grid;gap:6px}
+/* governance and risks */
+table.risks{min-width:0}
+table.risks td{padding:5px 12px;font-size:14px;line-height:1.4}
+table.risks td:first-child{font-weight:600;width:34%}
+
+.board{background:var(--ink);color:var(--paper);padding:var(--s4) var(--s6);display:grid;gap:6px}
 .board .label{color:var(--paper);opacity:.75}
-.board b{font-family:var(--serif);font-weight:600;font-size:24px}
+.board b{font-family:var(--serif);font-weight:600;font-size:21px}
 .board p{font-size:16px;opacity:.9;max-width:80ch}
-.unit{border-top:3px solid}
+.unit{border-top:3px solid;padding:var(--s4) var(--s6)}
 .unit.h1{border-top-color:var(--h1)}.unit.h2{border-top-color:var(--h2)}.unit.h3{border-top-color:var(--h3)}
 .rules{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
 @media(max-width:860px){.rules{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -257,3 +261,34 @@ tr.us .ib i{background:var(--h1)}
 .member span{font-size:12px;color:var(--muted);line-height:1.35}
 .sources ol{margin:0;padding-left:20px;display:grid;gap:6px;font-size:15px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* save as PDF button */
+.printbtn{display:inline-flex;align-items:center;background:none;border:1px solid var(--hairline);padding:8px 12px;cursor:pointer;font-size:13px;color:var(--ink);justify-self:start}
+.printbtn:hover{border-color:var(--ink)}
+.print-only{display:none}
+
+/* while printing is prepared, lay the slides out at A4 landscape width so each can be measured */
+html.printing .nav,html.printing .pager,html.printing .progress{display:none!important}
+html.printing .layout{display:block}
+html.printing .panels > .panel,html.printing .panels > .panel[hidden]{display:grid!important;width:1047px;max-width:none!important;padding-block:0;animation:none}
+html.printing .mx svg{max-height:none;min-width:0}
+html.printing .gw svg{min-width:0}
+html.printing .tw,html.printing .mx,html.printing .gw{overflow:visible}
+
+/* print: every slide on its own landscape page, light colours, no navigation */
+@page{size:A4 landscape;margin:10mm}
+@media print{
+  body{background:#ffffff;padding:0;font-size:14px}
+  body::before,.progress,.nav,.pager,.themebtn,.printbtn{display:none!important}
+  .layout{display:block!important;max-width:none}
+  main{display:block;min-height:0}
+  .panels > .panel,.panels > .panel[hidden]{display:grid!important;max-width:none!important;width:100%;padding-block:0;animation:none!important;break-after:page;page-break-after:always;break-inside:avoid}
+  .panels > .panel:last-child{break-after:auto;page-break-after:auto}
+  .print-only{display:block}
+  .card,.tw,.board,.ask,.scenario,.signals,.tiles{break-inside:avoid}
+  .tw,.mx,.gw{overflow:visible}
+  .mx svg{max-height:none;min-width:0}
+  .gw svg{min-width:0}
+  .btns,.hint{display:none}
+  a{text-decoration:none}
+}

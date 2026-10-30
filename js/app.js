@@ -280,6 +280,39 @@ addEventListener("touchend", (e) => {
   const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; tx = null;
   if (Math.abs(dx) > 70 && Math.abs(dx) > 2 * Math.abs(dy)) go(dx < 0 ? 1 : -1);
 }, {passive: true});
+/* save as PDF: show every slide in light colours while the print dialog is open */
+let printTheme = null;
+const PAGE_H = 700; // A4 landscape page height at 96 dpi, less 10 mm margins and a little room
+function beforePrint() {
+  if (printTheme !== null) return;
+  const root = document.documentElement;
+  printTheme = root.dataset.theme || "";
+  root.dataset.theme = "light";
+  root.classList.add("printing");
+  panels.forEach((p) => { p.hidden = false; p.style.zoom = ""; p.style.maxWidth = ""; });
+  drawMatrix();
+  // scale each slide so it fits one page (never below 60%)
+  panels.forEach((p) => {
+    if (p.getBoundingClientRect().height <= PAGE_H) return;
+    const ok = (z) => { p.style.zoom = z.toFixed(3); return p.getBoundingClientRect().height <= PAGE_H; };
+    let lo = .6, hi = 1;
+    if (ok(lo)) { for (let k = 0; k < 7; k++) { const mid = (lo + hi) / 2; if (ok(mid)) lo = mid; else hi = mid; } }
+    ok(lo);
+  });
+}
+function afterPrint() {
+  if (printTheme === null) return;
+  if (printTheme) document.documentElement.dataset.theme = printTheme; else delete document.documentElement.dataset.theme;
+  printTheme = null;
+  document.documentElement.classList.remove("printing");
+  panels.forEach((p, j) => { p.hidden = j !== cur; p.style.zoom = ""; });
+  if (ids[cur] === "risk") drawMatrix();
+  fit();
+}
+addEventListener("beforeprint", beforePrint);
+addEventListener("afterprint", afterPrint);
+document.querySelectorAll("#printbtn").forEach((b) => b.addEventListener("click", () => window.print()));
+
 let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(fit, 120); });
 /* refit if the open page grows later (an image or font arriving) */
 if ("ResizeObserver" in window) {
