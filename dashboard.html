@@ -86,6 +86,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   .chapters a:hover{border-left-color:var(--muted)}
   .navfoot{display:grid;gap:12px;margin-top:auto}
   .navfoot .cta{justify-self:start;padding:12px 16px}
+  .nav{padding-block:clamp(16px,4vh,36px) clamp(12px,2.5vh,24px)}
+  .navin{gap:clamp(12px,2.4vh,24px)}
+  .chapters a{padding-block:clamp(3px,.8vh,7px)}
+  .chapters .act,.chapters .act:first-child{padding-top:clamp(8px,1.8vh,16px)}
+  @media(max-height:800px){.navfoot .note{display:none}}
   .navfoot a.small{font-size:13px;color:var(--muted)}
   .topcta{display:none}
 }
@@ -93,17 +98,18 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 /* panels */
 main{min-width:0;display:grid;grid-template-rows:1fr auto;min-height:calc(100vh - 52px)}
 @media(min-width:1024px){main{min-height:100vh}}
-.panel{padding-block:40px 32px;display:grid;gap:var(--s6);align-content:start;max-width:1060px;width:100%}
+.panel{padding-block:clamp(16px,3.5vh,40px) clamp(12px,2.5vh,28px);display:grid;gap:clamp(12px,2.4vh,24px);align-content:start;max-width:1060px;width:100%}
 .panel:focus{outline:none}
 @media (prefers-reduced-motion:no-preference){.panel{animation:in .35s ease-out}}
 @keyframes in{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
-.phead{display:grid;gap:10px;max-width:72ch}
-.phead h2{font-size:clamp(28px,3.6vw,38px)}
+.phead{display:grid;gap:clamp(6px,1vh,10px);max-width:72ch}
+.phead h2{font-size:clamp(26px,min(3.4vw,4.6vh),38px)}
+.phead h2::after{margin-top:clamp(8px,1.4vh,14px)!important}
 .phead h2::after{content:"";display:block;width:48px;height:2px;background:var(--gold);margin-top:14px}
-.phead .lead{font-size:19px;line-height:1.5}
-.pager{position:sticky;bottom:0;z-index:10;background:var(--ivory);border-top:1px solid var(--hairline);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding-block:12px max(12px,env(safe-area-inset-bottom,0px));max-width:1060px}
+.phead .lead{font-size:clamp(16px,2.1vh,19px);line-height:1.45}
+.pager{position:sticky;bottom:0;z-index:10;background:var(--ivory);border-top:1px solid var(--hairline);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding-block:8px max(8px,env(safe-area-inset-bottom,0px));max-width:1060px}
 .pager #prev{justify-self:start}
-.pager button{background:none;border:1px solid var(--hairline);padding:10px 14px;cursor:pointer;display:grid;gap:0;text-align:left;min-width:0}
+.pager button{background:none;border:1px solid var(--hairline);padding:7px 14px;cursor:pointer;display:grid;gap:0;text-align:left;min-width:0}
 .pager button:hover{border-color:var(--ink)}
 .pager button[disabled]{visibility:hidden}
 .pager button span{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
@@ -124,13 +130,13 @@ main{min-width:0;display:grid;grid-template-rows:1fr auto;min-height:calc(100vh 
 /* cover */
 .memo{display:flex;flex-wrap:wrap;gap:6px 28px;font-size:15px}
 .memo b{font-weight:600}
-.cover h1{font-size:clamp(34px,5.4vw,56px);line-height:1.1;max-width:18ch}
-.cover .lead{font-size:20px;line-height:1.5;max-width:58ch}
+.cover h1{font-size:clamp(32px,min(5.4vw,7vh),56px);line-height:1.1;max-width:18ch}
+.cover .lead{font-size:clamp(17px,2.3vh,20px);line-height:1.5;max-width:58ch}
 .tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
 @media(max-width:860px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:420px){.tiles{grid-template-columns:1fr}}
 .tile{padding:var(--s4) var(--s6) var(--s6);display:grid;gap:6px;align-content:start;min-width:0}
-.tile .kpi{font-family:var(--serif);font-size:44px;line-height:1;font-weight:600;font-variant-numeric:tabular-nums}
+.tile .kpi{font-family:var(--serif);font-size:clamp(34px,5vh,44px);line-height:1;font-weight:600;font-variant-numeric:tabular-nums}
 .tile p{font-size:15px}
 .btns{display:flex;flex-wrap:wrap;gap:10px}
 .btn{background:none;border:1px solid var(--ink);padding:10px 16px;font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block}
@@ -185,7 +191,10 @@ tbody tr.sel td{background:var(--source-note)}
 .legend{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:13px;color:var(--muted);list-style:none;margin:0;padding:0}
 .legend i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
 .pf{display:grid;gap:var(--s6);align-items:start}
-@media(min-width:1280px){.pf{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}.pf table{min-width:0}.pf .mx svg{min-width:0}}
+.pf td{padding:8px 12px}
+.views{display:inline-flex;gap:8px;margin-left:auto}
+@media(min-width:1280px){.pf{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}.pf table{min-width:0}.pf .mx svg{min-width:0}.views{display:none}}
+@media(max-width:1279px){.pf[data-view="list"] > .card{display:none}.pf[data-view="chart"] > .tw{display:none}}
 .tip{position:absolute;pointer-events:none;background:var(--paper);border:1px solid var(--ink);padding:8px 10px;font-size:13px;max-width:240px;display:grid;gap:2px;z-index:5}
 
 /* ranking */
@@ -383,8 +392,9 @@ tr.us .ib i{background:var(--h1)}
     <button class="chip" data-f="H1" aria-pressed="false">H1 · Core</button>
     <button class="chip" data-f="H2" aria-pressed="false">H2 · Adjacent</button>
     <button class="chip" data-f="H3" aria-pressed="false">H3 · New</button>
+    <span class="views" role="group" aria-label="View"><button class="chip" data-v="list" aria-pressed="true">List</button><button class="chip" data-v="chart" aria-pressed="false">Chart</button></span>
   </div>
-  <div class="pf">
+  <div class="pf" id="pf" data-view="list">
     <div class="tw"><table>
       <thead><tr><th>Initiative</th><th class="n">2027</th><th>Review target</th></tr></thead>
       <tbody id="initrows"></tbody></table></div>
@@ -557,8 +567,8 @@ const DATA = {
     {id:"genius",name:"Beauty Genius skin & scalp tracking",short:"Beauty Genius",h:"H1",eur:12,risk:.18,rew:.5,role:"Lead",gate:"Higher retention than today's users",sc:[8,7,6,9,9]},
     {id:"salon",name:"Salon digital toolkit",short:"Salon toolkit",h:"H1",eur:8,risk:.22,rew:.38,gate:"60% of onboarded salons use it weekly",sc:[7,6,5,8,8]},
     {id:"reorder",name:"One-tap professional reorder",short:"One-tap reorder",h:"H1",eur:5,risk:.12,rew:.3,gate:"Salon commission paid, no channel conflict",sc:[6,7,6,9,9]},
-    {id:"progo",name:"PRO•GO pilot, Dubai",short:"PRO•GO",h:"H2",eur:10,risk:.55,rew:.85,role:"Lead",gate:"Q4 2027: repeat bookings, positive margin per visit. €3m now, €7m after the review",sc:[10,9,8,6,7]},
-    {id:"subtest",name:"Salon subscription test",short:"Subscription test",h:"H2",eur:3,risk:.4,rew:.6,role:"Hedge",gate:"Retention above 60% before PRO•GO adds subscriptions in 2028. Works even if at-home demand stays low",sc:[9,7,7,8,8]},
+    {id:"progo",name:"PRO•GO pilot, Dubai",short:"PRO•GO",h:"H2",eur:10,risk:.55,rew:.85,role:"Lead",gate:"Q4 2027: repeat bookings, positive margin per visit",sc:[10,9,8,6,7]},
+    {id:"subtest",name:"Salon subscription test",short:"Subscription test",h:"H2",eur:3,risk:.4,rew:.6,role:"Hedge",gate:"Retention above 60% before PRO•GO adds subscriptions in 2028",sc:[9,7,7,8,8]},
     {id:"b2b",name:"Branded residence & hotel partners",short:"Residence partners",h:"H2",eur:2,risk:.45,rew:.68,gate:"2 signed letters of intent in 2027",sc:[8,7,7,6,6]},
     {id:"longevity",name:"Longevity care subscription",short:"Longevity care",h:"H3",eur:5,risk:.8,rew:.92,role:"Lead",gate:"Concept and partner validated by 2028",sc:[10,8,9,4,4]},
     {id:"passport",name:"Beauty Passport data platform",short:"Beauty Passport",h:"H3",eur:3,risk:.7,rew:.78,gate:"Privacy and regulatory review passed",sc:[9,7,6,5,5]},
@@ -638,8 +648,11 @@ function renderInits() {
   });
   drawMatrix();
 }
-document.querySelectorAll("#chips .chip").forEach((c) => c.onclick = () => {
-  filter = c.dataset.f; document.querySelectorAll("#chips .chip").forEach((o) => o.setAttribute("aria-pressed", o === c)); renderInits();
+document.querySelectorAll("#chips [data-v]").forEach((c) => c.onclick = () => {
+  $("#pf").dataset.view = c.dataset.v; document.querySelectorAll("#chips [data-v]").forEach((o) => o.setAttribute("aria-pressed", o === c)); renderInits(); fit();
+});
+document.querySelectorAll("#chips [data-f]").forEach((c) => c.onclick = () => {
+  filter = c.dataset.f; document.querySelectorAll("#chips [data-f]").forEach((o) => o.setAttribute("aria-pressed", o === c)); renderInits(); fit();
 });
 const NS = "http://www.w3.org/2000/svg";
 const svgEl = (t, a, txt) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (txt != null) e.textContent = txt; return e; };
@@ -667,8 +680,8 @@ function drawMatrix() {
       tip.replaceChildren(el("span", {class: "label"}, `${p.h} · ${HZ[p.h].name} · ${eur(p.eur)}`), el("b", {}, p.name));
       tip.hidden = false;
       const box = $("#mxbox"), sr = svg.getBoundingClientRect(), br = box.getBoundingClientRect(), k = sr.width / 720;
-      const px = cx * k + sr.left - br.left + box.scrollLeft, py = cy * k + sr.top - br.top;
-      tip.style.left = Math.max(4, Math.min(px + 14, box.scrollLeft + br.width - tip.offsetWidth - 4)) + "px";
+      const z = zoomOf(box), px = (cx * k + sr.left - br.left) / z + box.scrollLeft, py = (cy * k + sr.top - br.top) / z;
+      tip.style.left = Math.max(4, Math.min(px + 14, box.scrollLeft + br.width / z - tip.offsetWidth - 4)) + "px";
       tip.style.top = Math.max(4, py - tip.offsetHeight - 12) + "px";
     };
     g.addEventListener("mouseenter", show); g.addEventListener("focus", show);
@@ -753,6 +766,23 @@ DATA.peers.slice().sort((a, b) => b.rd / b.rev - a.rd / a.rev).forEach((p) => {
   $("#peerrows").appendChild(tr);
 });
 
+/* fit: on screens 768px and wider, scale the open page down (to 75% at most) so it fits above the pager */
+const MINZ = .75;
+const zoomOf = (n) => { const p = n.closest(".panel"); return p && p.style.zoom ? parseFloat(p.style.zoom) : 1; };
+function fit() {
+  const p = panels[cur]; if (!p) return;
+  p.style.zoom = ""; p.style.width = ""; p.style.maxWidth = "";
+  if (innerWidth < 768) return;
+  const nav = innerWidth < 1024 ? document.querySelector(".nav").offsetHeight : 0;
+  const avail = innerHeight - document.querySelector(".pager").offsetHeight - nav - 4;
+  if (p.getBoundingClientRect().height <= avail) return;
+  const apply = (z) => { p.style.zoom = z.toFixed(3); p.style.maxWidth = (1060 / z) + "px"; return p.getBoundingClientRect().height <= avail; };
+  let lo = MINZ, hi = 1;
+  if (apply(lo)) { for (let k = 0; k < 7; k++) { const mid = (lo + hi) / 2; if (apply(mid)) lo = mid; else hi = mid; } }
+  apply(lo);
+  if (ids[cur] === "portfolio") drawMatrix();
+}
+
 /* panels: one at a time, routed by the address hash */
 const panels = [...document.querySelectorAll(".panel")];
 const ids = panels.map((p) => p.id);
@@ -776,6 +806,7 @@ function show(id, focus) {
   $("#prog").style.width = (i / (ids.length - 1) * 100) + "%";
   window.scrollTo(0, 0);
   if (ids[i] === "portfolio") renderInits();
+  fit();
   if (focus) panels[i].focus({preventScroll: true});
 }
 const go = (d) => { const n = cur + d; if (n >= 0 && n < ids.length) location.hash = ids[n]; };
@@ -794,7 +825,9 @@ addEventListener("touchend", (e) => {
   const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; tx = null;
   if (Math.abs(dx) > 70 && Math.abs(dx) > 2 * Math.abs(dy)) go(dx < 0 ? 1 : -1);
 }, {passive: true});
-addEventListener("resize", () => { if (ids[cur] === "portfolio") drawMatrix(); });
+let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(fit, 120); });
+if (document.fonts) document.fonts.ready.then(fit);
+addEventListener("load", fit);
 show(location.hash.slice(1) || "start", false);
 </script>
 </body>
