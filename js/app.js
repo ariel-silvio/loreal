@@ -209,7 +209,7 @@ function fit() {
   p.style.zoom = ""; p.style.width = ""; p.style.maxWidth = "";
   if (innerWidth < 768) return;
   const nav = innerWidth < 1024 ? document.querySelector(".nav").offsetHeight : 0;
-  const avail = innerHeight - document.querySelector(".pager").offsetHeight - nav - 4;
+  const avail = innerHeight - document.querySelector(".pager").offsetHeight - nav - 6;
   if (p.getBoundingClientRect().height <= avail) return;
   const apply = (z) => { p.style.zoom = z.toFixed(3); p.style.maxWidth = (1060 / z) + "px"; return p.getBoundingClientRect().height <= avail; };
   let lo = MINZ, hi = 1;
@@ -239,7 +239,9 @@ syncTheme();
 
 /* the disclaimer goes at the foot of every slide, so a single forwarded page or PDF page still carries it */
 (() => { const d = $("#disc"); if (!d) return;
-  document.querySelectorAll(".panel").forEach((p) => { const c = d.cloneNode(true); c.removeAttribute("id"); c.hidden = false; p.appendChild(c); }); })();
+  const copy = () => { const c = d.cloneNode(true); c.removeAttribute("id"); c.hidden = false; return c; };
+  document.querySelectorAll(".panel").forEach((p) => p.appendChild(copy()));
+  document.querySelectorAll(".pager .mid").forEach((m) => m.appendChild(copy())); })();
 
 /* panels: one at a time, routed by the address hash */
 const panels = [...document.querySelectorAll(".panel")];
@@ -286,7 +288,7 @@ addEventListener("touchend", (e) => {
 }, {passive: true});
 /* save as PDF: show every slide in light colours while the print dialog is open */
 let printTheme = null;
-const PAGE_H = 700; // A4 landscape page height at 96 dpi, less 10 mm margins and a little room
+const PAGE_H = 680; // A4 landscape page height at 96 dpi, less 10 mm margins and a little room
 let printFired = false;
 function beforePrint() {
   printFired = true;

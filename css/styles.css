@@ -100,7 +100,7 @@ main{min-width:0;display:grid;grid-template-rows:1fr auto;min-height:calc(100vh 
 .phead h2::after{margin-top:clamp(8px,1.4vh,14px)!important}
 .phead h2::after{content:"";display:block;width:48px;height:2px;background:var(--gold);margin-top:14px}
 .phead .lead{font-size:clamp(16px,2.1vh,19px);line-height:1.45}
-.pager{position:sticky;bottom:0;z-index:10;background:var(--ivory);border-top:1px solid var(--hairline);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding-block:8px max(8px,env(safe-area-inset-bottom,0px));max-width:1060px}
+.pager{position:sticky;bottom:0;z-index:10;background:var(--ivory);border-top:1px solid var(--hairline);display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding-block:8px max(8px,env(safe-area-inset-bottom,0px));max-width:1060px}
 .pager #prev{justify-self:start}
 .pager button{background:none;border:1px solid var(--hairline);padding:7px 14px;cursor:pointer;display:grid;gap:0;text-align:left;min-width:0}
 .pager button:hover{border-color:var(--ink)}
@@ -110,6 +110,11 @@ main{min-width:0;display:grid;grid-template-rows:1fr auto;min-height:calc(100vh 
 .pager #next{justify-self:end;text-align:right;background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .pager #next span{color:var(--paper);opacity:.75}
 .pager .count{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.pager .mid{display:grid;gap:2px;justify-items:center;text-align:center;min-width:0}
+.pager .mid .disc{border:0;padding:0;font-size:10.5px;max-width:60ch}
+/* the notice sits under the page number on screen; on phones and in print it sits at the foot of each slide */
+.panel > .disc{display:none}
+@media(max-width:560px){.pager .mid .disc{display:none}.panel > .disc{display:block}}
 @media(max-width:560px){.pager button b{font-size:13px}.pager .count{font-size:12px}}
 
 .card{background:var(--paper);border:1px solid var(--hairline);padding:var(--s6);display:grid;gap:12px;align-content:start;min-width:0}
@@ -283,6 +288,7 @@ tr.us .ib i{background:var(--h1)}
 html.printing .nav,html.printing .pager,html.printing .progress{display:none!important}
 html.printing .layout{display:block}
 html.printing .panels > .panel,html.printing .panels > .panel[hidden]{display:grid!important;width:1047px;max-width:none!important;padding-block:0;animation:none}
+html.printing .panel > .disc{display:block}
 html.printing .mx svg{max-height:none;min-width:0}
 html.printing .gw svg{min-width:0}
 html.printing .tw,html.printing .mx,html.printing .gw{overflow:visible}
@@ -297,6 +303,7 @@ html.printing .tw,html.printing .mx,html.printing .gw{overflow:visible}
   .panels > .panel,.panels > .panel[hidden]{display:grid!important;max-width:none!important;width:100%;padding-block:0;animation:none!important;break-after:page;page-break-after:always;break-inside:avoid}
   .panels > .panel:last-child{break-after:auto;page-break-after:auto}
   .print-only{display:block}
+  .panel > .disc{display:block!important}
   .card,.tw,.board,.ask,.scenario,.signals,.tiles{break-inside:avoid}
   .tw,.mx,.gw{overflow:visible}
   .mx svg{max-height:none;min-width:0}
