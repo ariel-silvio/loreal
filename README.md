@@ -55,6 +55,8 @@ Open the folder in a code editor (VS Code works well). To see the result, open `
 
 **To change a photo,** replace the file in `images/` with a JPG of the same name. Team photos look best square.
 
+**Short version:** the cover has a switch between the full version (11 slides) and a short version. Slides in the short version (the request, budget, timeline, decisions and sources) carry `data-short` on their `<section>` in `index.html`: add or remove that attribute to change it. Next/Previous, the arrow keys and Save as PDF then follow the short version.
+
 **To add a slide,** copy a `<section class="panel">` block, give it a new `id`, and add a matching link in the sidebar (`<div class="chapters">`). The Previous/Next buttons pick it up on their own.
 
 **Save as PDF:** the small link at the bottom of the sidebar prints every slide on its own A4 landscape page in light colours, scaled to fit. Use "Save as PDF" in the print dialog. After changing a slide, check it still prints on one page.

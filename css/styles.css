@@ -267,6 +267,14 @@ tr.us .ib i{background:var(--h1)}
 .sources ol{margin:0;padding-left:20px;display:grid;gap:6px;font-size:15px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
+/* version switch */
+.modes{display:inline-flex;border:1px solid var(--ink);justify-self:start;flex-wrap:wrap}
+.mode{background:none;border:0;padding:9px 16px;cursor:pointer;font-size:13px;font-weight:500;color:var(--ink)}
+.mode[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.mode:focus-visible{outline-offset:-4px}
+.chapters a.out{opacity:.4}
+html .panels > .panel.skip,html .panels > .panel.skip[hidden],html.printing .panels > .panel.skip,html.printing .panels > .panel.skip[hidden]{display:none!important}
+
 /* brand line, disclaimer, AI label */
 .tagline{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(20px,2.6vh,24px);color:var(--gold-text);margin:0}
 .ask .tagline{color:var(--gold);font-size:20px;opacity:1}

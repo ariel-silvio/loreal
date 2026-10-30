@@ -247,7 +247,22 @@ syncTheme();
 const panels = [...document.querySelectorAll(".panel")];
 const ids = panels.map((p) => p.id);
 const titles = Object.fromEntries([...document.querySelectorAll("#chapters a")].map((a) => [a.getAttribute("href").slice(1), a.lastChild.textContent.trim()]));
-let cur = -1;
+let cur = -1, prevId = null, nextId = null;
+/* short version: only the slides marked data-short in index.html */
+let short = false;
+try { short = sessionStorage.getItem("td-short") === "1"; } catch (e) {}
+const seq = () => short ? ids.filter((id) => document.getElementById(id).hasAttribute("data-short")) : ids;
+function setShort(on) {
+  short = on;
+  try { sessionStorage.setItem("td-short", on ? "1" : "0"); } catch (e) {}
+  document.documentElement.classList.toggle("shortmode", on);
+  document.querySelectorAll(".mode").forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.mode === "short") === on)));
+  document.querySelectorAll("#shortbtn").forEach((b) => { b.setAttribute("aria-pressed", String(on)); b.textContent = on ? "Full version" : "Short version"; });
+  const s = seq();
+  document.querySelectorAll("#chapters a").forEach((a) => a.classList.toggle("out", on && !s.includes(a.getAttribute("href").slice(1))));
+  document.querySelectorAll("#startbtn").forEach((b) => { const first = s[1]; b.href = "#" + first; b.textContent = "Start with " + titles[first].toLowerCase(); });
+  if (cur >= 0) { const id = ids[cur]; cur = -1; show(id, false); }
+}
 function show(id, focus) {
   const i = Math.max(0, ids.indexOf(id));
   if (i === cur) return;
@@ -259,18 +274,26 @@ function show(id, focus) {
     if (on) { a.setAttribute("aria-current", "page"); const ch = $("#chapters"); if (ch.scrollWidth > ch.clientWidth) ch.scrollLeft = a.offsetLeft - ch.offsetLeft - ch.clientWidth / 2 + a.offsetWidth / 2; }
     else a.removeAttribute("aria-current");
   });
-  $("#prev").disabled = i === 0; $("#next").disabled = i === ids.length - 1;
-  $("#prevt").textContent = i > 0 ? titles[ids[i - 1]] : "";
-  $("#nextt").textContent = i < ids.length - 1 ? titles[ids[i + 1]] : "";
-  $("#count").textContent = `${i + 1} / ${ids.length}`;
-  $("#prog").style.width = (i / (ids.length - 1) * 100) + "%";
+  // previous and next follow the chosen version; from a slide outside it, go to the nearest slide inside it
+  const s = seq(), pos = s.indexOf(ids[i]);
+  prevId = pos >= 0 ? s[pos - 1] || null : [...s].reverse().find((x) => ids.indexOf(x) < i) || null;
+  nextId = pos >= 0 ? s[pos + 1] || null : s.find((x) => ids.indexOf(x) > i) || null;
+  $("#prev").disabled = !prevId; $("#next").disabled = !nextId;
+  $("#prevt").textContent = prevId ? titles[prevId] : "";
+  $("#nextt").textContent = nextId ? titles[nextId] : "";
+  // the counter uses the sidebar's numbers (the cover is 0)
+  $("#count").textContent = short ? `Short version · ${pos >= 0 ? pos + 1 : "–"} of ${s.length}` : (i === 0 ? "Start" : `${i} / ${ids.length - 1}`);
+  const at = pos >= 0 ? pos : Math.max(0, s.indexOf(prevId));
+  $("#prog").style.width = (at / (s.length - 1) * 100) + "%";
   window.scrollTo(0, 0);
   if (ids[i] === "risk") drawMatrix();
   fit();
   panels[i].querySelectorAll("img").forEach((im) => { if (!im.complete) im.addEventListener("load", fit, {once: true}); else if (im.decode) im.decode().then(fit, () => {}); });
   if (focus) panels[i].focus({preventScroll: true});
 }
-const go = (d) => { const n = cur + d; if (n >= 0 && n < ids.length) location.hash = ids[n]; };
+const go = (d) => { const t = d > 0 ? nextId : prevId; if (t) location.hash = t; };
+document.querySelectorAll(".mode").forEach((b) => b.addEventListener("click", () => setShort(b.dataset.mode === "short")));
+document.querySelectorAll("#shortbtn").forEach((b) => b.addEventListener("click", () => setShort(!short)));
 addEventListener("hashchange", () => show(location.hash.slice(1), true));
 $("#prev").onclick = () => go(-1);
 $("#next").onclick = () => go(1);
@@ -297,7 +320,8 @@ function beforePrint() {
   printTheme = root.dataset.theme || "";
   root.dataset.theme = "light";
   root.classList.add("printing");
-  panels.forEach((p) => { p.hidden = false; p.style.zoom = ""; p.style.maxWidth = ""; });
+  const s = seq();
+  panels.forEach((p) => { p.hidden = false; p.style.zoom = ""; p.style.maxWidth = ""; p.classList.toggle("skip", !s.includes(p.id)); });
   drawMatrix();
   // scale each slide so it fits one page (never below 60%)
   panels.forEach((p) => {
@@ -313,7 +337,7 @@ function afterPrint() {
   if (printTheme) document.documentElement.dataset.theme = printTheme; else delete document.documentElement.dataset.theme;
   printTheme = null;
   document.documentElement.classList.remove("printing");
-  panels.forEach((p, j) => { p.hidden = j !== cur; p.style.zoom = ""; });
+  panels.forEach((p, j) => { p.hidden = j !== cur; p.style.zoom = ""; p.classList.remove("skip"); });
   if (ids[cur] === "risk") drawMatrix();
   fit();
 }
@@ -339,4 +363,5 @@ if ("ResizeObserver" in window) {
 }
 if (document.fonts) document.fonts.ready.then(fit);
 addEventListener("load", fit);
+setShort(short);
 show(location.hash.slice(1) || "start", false);
