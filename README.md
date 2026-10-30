@@ -11,7 +11,7 @@ Team D's M2 deliverable for Corporate Entrepreneurship (IE Executive MBA, Prof. 
 | `js/data.js` | All numbers and initiative details | Anyone |
 | `css/styles.css` | Brand kit colours, fonts and layout | Rarely |
 | `js/app.js` | Charts, tables, slide navigation, fit to screen, light/dark switch | Only to change how the page works |
-| `images/` | Scenario image and team photos | Replace a file, keeping the same name |
+| `images/` | Scenario image, team photos and the browser icon (`favicon.svg`, plus PNG copies for older browsers and iPhone) | Replace a file, keeping the same name |
 
 ## The page in one minute
 
