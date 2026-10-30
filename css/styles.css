@@ -263,8 +263,12 @@ tr.us .ib i{background:var(--h1)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
 /* save as PDF button */
-.printbtn{display:inline-flex;align-items:center;background:none;border:1px solid var(--hairline);padding:8px 12px;cursor:pointer;font-size:13px;color:var(--ink);justify-self:start}
-.printbtn:hover{border-color:var(--ink)}
+.utils{display:flex;flex-wrap:wrap;gap:6px 18px;border-top:1px solid var(--hairline);padding-top:10px}
+.util,.util.themebtn{display:inline-flex;align-items:center;gap:6px;background:none;border:0;padding:2px 0;cursor:pointer;font-size:12px;color:var(--muted)}
+.util:hover,.util.themebtn:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.util.themebtn i{width:11px;height:11px;border-color:currentColor;background:linear-gradient(90deg,currentColor 50%,transparent 50%)}
+.util svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.printhint{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:40;max-width:min(300px,calc(100vw - 32px));font-size:13px;line-height:1.45;color:var(--ink);background:var(--paper);border:1px solid var(--ink);padding:10px 12px;margin:0;cursor:pointer}
 .print-only{display:none}
 
 /* while printing is prepared, lay the slides out at A4 landscape width so each can be measured */
@@ -279,7 +283,7 @@ html.printing .tw,html.printing .mx,html.printing .gw{overflow:visible}
 @page{size:A4 landscape;margin:10mm}
 @media print{
   body{background:#ffffff;padding:0;font-size:14px}
-  body::before,.progress,.nav,.pager,.themebtn,.printbtn{display:none!important}
+  body::before,.progress,.nav,.pager,.themebtn,.util{display:none!important}
   .layout{display:block!important;max-width:none}
   main{display:block;min-height:0}
   .panels > .panel,.panels > .panel[hidden]{display:grid!important;max-width:none!important;width:100%;padding-block:0;animation:none!important;break-after:page;page-break-after:always;break-inside:avoid}

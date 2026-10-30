@@ -57,7 +57,7 @@ Open the folder in a code editor (VS Code works well). To see the result, open `
 
 **To add a slide,** copy a `<section class="panel">` block, give it a new `id`, and add a matching link in the sidebar (`<div class="chapters">`). The Previous/Next buttons pick it up on their own.
 
-**Save as PDF:** the sidebar button prints every slide on its own A4 landscape page in light colours, scaled to fit. Use "Save as PDF" in the print dialog. After changing a slide, check it still prints on one page.
+**Save as PDF:** the small link at the bottom of the sidebar prints every slide on its own A4 landscape page in light colours, scaled to fit. Use "Save as PDF" in the print dialog. After changing a slide, check it still prints on one page.
 
 **Colours, fonts and dark mode** come from the Team D Brand Kit. They're set once as variables at the top of `css/styles.css` (`--ink`, `--gold`, `--h1`…). Change a variable there, never a colour inside a rule. The light/dark button and the screen-height fitting work on their own.
 

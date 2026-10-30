@@ -283,7 +283,9 @@ addEventListener("touchend", (e) => {
 /* save as PDF: show every slide in light colours while the print dialog is open */
 let printTheme = null;
 const PAGE_H = 700; // A4 landscape page height at 96 dpi, less 10 mm margins and a little room
+let printFired = false;
 function beforePrint() {
+  printFired = true;
   if (printTheme !== null) return;
   const root = document.documentElement;
   printTheme = root.dataset.theme || "";
@@ -311,7 +313,13 @@ function afterPrint() {
 }
 addEventListener("beforeprint", beforePrint);
 addEventListener("afterprint", afterPrint);
-document.querySelectorAll("#printbtn").forEach((b) => b.addEventListener("click", () => window.print()));
+document.querySelectorAll("#printhint").forEach((h) => h.addEventListener("click", () => h.hidden = true));
+// some embedded viewers block window.print() without an error: if no print starts, say how to print instead
+document.querySelectorAll("#printbtn").forEach((b) => b.addEventListener("click", () => {
+  const hint = $("#printhint"); hint.hidden = true; printFired = false;
+  try { window.print(); } catch (e) {}
+  setTimeout(() => { if (!printFired) { hint.hidden = false; clearTimeout(hint._t); hint._t = setTimeout(() => hint.hidden = true, 12000); } }, 700);
+}));
 
 let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(fit, 120); });
 /* refit if the open page grows later (an image or font arriving) */
