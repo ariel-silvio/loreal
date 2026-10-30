@@ -23,11 +23,11 @@ Eleven slides, one at a time. Readers move with the sidebar, the Previous/Next b
 | 1 | Why now | `why` |
 | 2 | The concept | `concept` |
 | 3 | Budget and initiatives | `budget` |
-| 4 | Risk and reward | `risk` |
-| 5 | Ranking | `ranking` |
-| 6 | Timeline and funding | `timeline` |
-| 7 | Governance and risks | `governance` |
-| 8 | Reference companies | `peers` |
+| 4 | Reference companies | `peers` |
+| 5 | Risk and reward | `risk` |
+| 6 | Ranking | `ranking` |
+| 7 | Timeline and funding | `timeline` |
+| 8 | Governance and risks | `governance` |
 | 9 | Decisions | `decide` |
 | 10 | Sources | `sources` |
 
@@ -58,6 +58,8 @@ Open the folder in a code editor (VS Code works well). To see the result, open `
 **To add a slide,** copy a `<section class="panel">` block, give it a new `id`, and add a matching link in the sidebar (`<div class="chapters">`). The Previous/Next buttons pick it up on their own.
 
 **Save as PDF:** the small link at the bottom of the sidebar prints every slide on its own A4 landscape page in light colours, scaled to fit. Use "Save as PDF" in the print dialog. After changing a slide, check it still prints on one page.
+
+**After changing `css/styles.css` or a file in `js/`,** change the `?v=…` number on the three lines in `index.html` that load them (for example `?v=20261030c` to `?v=20261031a`). Otherwise browsers may keep showing the old styling for up to 10 minutes and the page looks broken.
 
 **Colours, fonts and dark mode** come from the Team D Brand Kit. They're set once as variables at the top of `css/styles.css` (`--ink`, `--gold`, `--h1`…). Change a variable there, never a colour inside a rule. The light/dark button and the screen-height fitting work on their own.
 
