@@ -189,15 +189,18 @@ table.inits tr.hzrow b{font-weight:600}
 table.inits tr.hzrow span{color:var(--muted);font-size:14px;margin-left:8px}
 table.inits td{padding:5px 12px;line-height:1.4}
 table.inits td.m1{color:var(--muted);font-size:14px}
-/* timeline */
-table.tl td{padding:8px 12px}
-table.tl td.when{font-weight:600;white-space:nowrap}
-table.tl td.dec{font-size:14px}
-table.tl td.dec b{display:inline-block;color:var(--gold-text);font-weight:600;margin-right:4px}
-table.tl tr.key td{background:var(--source-note)}
-.mbar{display:inline-flex;gap:2px;vertical-align:middle;margin-right:8px;width:72px;justify-content:flex-start}
-.mbar i{display:block;height:8px;background:var(--h2)}
-.mbar i.held{opacity:.3}
+
+/* risk and reward */
+.mx{overflow-x:auto;position:relative}
+.mx svg{display:block;width:100%;min-width:520px;height:auto;max-height:60vh}
+.legend{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:13px;color:var(--muted);list-style:none;margin:0;padding:0}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+.legend i.dia{background:var(--gold-text);transform:rotate(45deg) scale(.85)}
+.tip{position:absolute;pointer-events:none;background:var(--paper);border:1px solid var(--ink);padding:8px 10px;font-size:13px;max-width:260px;display:grid;gap:2px;z-index:5}
+/* gantt */
+.gw{overflow-x:auto}
+.gw svg{display:block;width:100%;min-width:760px;height:auto}
+.grid3 .card p b{font-family:var(--serif);font-weight:600;font-size:22px}
 
 /* ranking */
 .prio{display:grid;grid-template-columns:minmax(0,290px) minmax(0,1fr);gap:var(--s6);align-items:start}
@@ -267,13 +270,14 @@ tr.us .ib i{background:var(--h1)}
       <a href="#concept"><b>2</b>The concept</a>
       <span class="act">Assess</span>
       <a href="#budget"><b>3</b>Budget and initiatives</a>
-      <a href="#ranking"><b>4</b>Ranking</a>
-      <a href="#timeline"><b>5</b>Timeline and funding</a>
-      <a href="#governance"><b>6</b>Governance</a>
-      <a href="#peers"><b>7</b>Reference companies</a>
+      <a href="#risk"><b>4</b>Risk and reward</a>
+      <a href="#ranking"><b>5</b>Ranking</a>
+      <a href="#timeline"><b>6</b>Timeline and funding</a>
+      <a href="#governance"><b>7</b>Governance</a>
+      <a href="#peers"><b>8</b>Reference companies</a>
       <span class="act">Approve</span>
-      <a href="#decide"><b>8</b>Decisions</a>
-      <a href="#sources"><b>9</b>Sources</a>
+      <a href="#decide"><b>9</b>Decisions</a>
+      <a href="#sources"><b>10</b>Sources</a>
     </div>
     <div class="navfoot">
       <button class="themebtn" type="button"><i aria-hidden="true"></i><span>Dark mode</span></button>
@@ -355,10 +359,24 @@ tr.us .ib i{background:var(--h1)}
   <span class="source">Team D proposal; L'Oréal 2025 Universal Registration Document (R&amp;I)</span>
 </section>
 
+<!-- 4 RISK AND REWARD -->
+<section class="panel" id="risk" tabindex="-1" aria-labelledby="h-risk" hidden>
+  <div class="phead">
+    <span class="label gold">Assess · 4</span>
+    <h2 id="h-risk">Risk and reward</h2>
+    <p class="lead">The largest amounts sit in the safe bets. The big bets get small amounts, released in stages. Bubble size is the 2027 budget.</p>
+  </div>
+  <div class="card">
+    <div class="mx" id="mxbox"><svg id="mx" viewBox="0 0 720 430" role="img" aria-label="Risk and reward of the nine initiatives; bubble size is the 2027 budget"></svg><div class="tip" id="tip" hidden></div></div>
+    <ul class="legend"><li><i style="background:var(--h1)"></i>H1 · Core</li><li><i style="background:var(--h2)"></i>H2 · Adjacent</li><li><i style="background:var(--h3)"></i>H3 · New</li><li>Point at a bubble for details</li></ul>
+  </div>
+  <span class="source">Team D assessment</span>
+</section>
+
 <!-- 4 RANKING -->
 <section class="panel" id="ranking" tabindex="-1" aria-labelledby="h-ranking" hidden>
   <div class="phead">
-    <span class="label gold">Assess · 4</span>
+    <span class="label gold">Assess · 5</span>
     <h2 id="h-ranking">How we ranked them</h2>
     <p class="lead">Team D scored each initiative from 0 to 10 on five criteria. <span id="robust">PRO•GO ranks first even when fit with our scenario counts for nothing.</span></p>
   </div>
@@ -375,16 +393,18 @@ tr.us .ib i{background:var(--h1)}
 <!-- 5 TIMELINE AND FUNDING -->
 <section class="panel" id="timeline" tabindex="-1" aria-labelledby="h-timeline" hidden>
   <div class="phead">
-    <span class="label gold">Assess · 5</span>
+    <span class="label gold">Assess · 6</span>
     <h2 id="h-timeline">Timeline and funding</h2>
     <p class="lead">PRO•GO is funded in stages. You decide at each review whether the next stage goes ahead.</p>
   </div>
-  <div class="tw"><table class="tl">
-    <thead><tr><th>When</th><th>What happens</th><th>Your decision</th><th class="n">PRO•GO money</th></tr></thead>
-    <tbody id="tlrows"></tbody></table></div>
-  <div class="grid2">
-    <p class="line">Maximum spend on PRO•GO before the first review: <b data-k="released">€3m</b>.</p>
-    <p class="line">Pilot targets for Q4 2027: <b data-k="subs">300</b> active subscribers and <b data-k="repeat">40%</b> repeat visits within 90 days.</p>
+  <div class="card">
+    <div class="gw"><svg id="gantt" viewBox="0 0 1000 300" role="img" aria-label="Timeline 2027 to 2035: work by horizon, PRO•GO funding stages and the CEO's decision points"></svg></div>
+    <ul class="legend"><li><i style="background:var(--h1)"></i>H1 · Core</li><li><i style="background:var(--h2)"></i>H2 · PRO•GO</li><li><i style="background:var(--h3)"></i>H3 · New</li><li><i class="dia"></i>Your decision</li></ul>
+  </div>
+  <div class="grid3">
+    <div class="card"><span class="label gold">Released now</span><p><b data-k="released">€3m</b> for the Dubai pilot. This is the most PRO•GO can spend before the first review.</p></div>
+    <div class="card"><span class="label gold">Q4 2027 review</span><p><b data-k="held">€7m</b> more only if repeat bookings grow and each visit makes money.</p></div>
+    <div class="card"><span class="label gold">Pilot targets</span><p><b data-k="subs">300</b> active subscribers and <b data-k="repeat">40%</b> repeat visits within 90 days.</p></div>
   </div>
   <span class="source">Team D proposal. Q1 set-up and Q3 results follow from a Q2 pilot start with a 90-day test.</span>
 </section>
@@ -392,7 +412,7 @@ tr.us .ib i{background:var(--h1)}
 <!-- 6 GOVERNANCE -->
 <section class="panel" id="governance" tabindex="-1" aria-labelledby="h-gov" hidden>
   <div class="phead">
-    <span class="label gold">Assess · 6</span>
+    <span class="label gold">Assess · 7</span>
     <h2 id="h-gov">Governance</h2>
     <p class="lead">You chair a quarterly Innovation Board. It approves budgets, reviews results and stops initiatives that miss their targets.</p>
   </div>
@@ -416,7 +436,7 @@ tr.us .ib i{background:var(--h1)}
 <!-- 7 REFERENCE COMPANIES -->
 <section class="panel" id="peers" tabindex="-1" aria-labelledby="h-peers" hidden>
   <div class="phead">
-    <span class="label gold">Assess · 7</span>
+    <span class="label gold">Assess · 8</span>
     <h2 id="h-peers">Reference companies</h2>
     <p class="lead">Peers spend 2–4% of sales on research and development (R&amp;D), mostly on products and science. None of them funds a professional care service.</p>
   </div>
@@ -430,7 +450,7 @@ tr.us .ib i{background:var(--h1)}
 <!-- 10 DECISIONS -->
 <section class="panel" id="decide" tabindex="-1" aria-labelledby="h-decide" hidden>
   <div class="ask">
-    <span class="label">Approve · 8</span>
+    <span class="label">Approve · 9</span>
     <h2 id="h-decide">Decisions requested</h2>
     <ol>
       <li><span>Approve the <b>€50m innovation budget for 2027</b>: €25m core, €15m adjacent, €10m new.</span></li>
@@ -456,7 +476,7 @@ tr.us .ib i{background:var(--h1)}
 <!-- 11 SOURCES -->
 <section class="panel sources" id="sources" tabindex="-1" aria-labelledby="h-sources" hidden>
   <div class="phead">
-    <span class="label gold">Appendix · 9</span>
+    <span class="label gold">Appendix · 10</span>
     <h2 id="h-sources">Sources</h2>
   </div>
   <div class="card">
@@ -505,16 +525,32 @@ const DATA = {
     {year:2029,stage:"Extend",eur:30,released:0,scope:"One European city. Add partner supplements to the subscription.",gate:"Profitable unit economics in two regions"},
     {year:2030,stage:"Scale-ready",eur:30,released:0,scope:"Platform and operations ready for wider rollout.",gate:"Board decides: scale or stop"}
   ],
-  timeline: [
-    {when:"Q1 2027",what:"PRO•GO venture unit and Innovation Board set up",dec:"Approve €50m",key:true,money:{year:2027,part:"released"}},
-    {when:"Q2 2027",what:"Dubai pilot starts: 2 communities, 3 services, 3–5 partner salons, WhatsApp booking"},
-    {when:"Q3 2027",what:"First results from the 90-day test",dec:"Quarterly Board review"},
-    {when:"Q4 2027",what:"Pilot review: repeat bookings, positive margin per visit",dec:"Continue or stop",key:true,money:{year:2027,part:"held"}},
-    {when:"2028",what:"App and Beauty Passport. UAE and Riyadh. Product subscriptions",dec:"Review: 90-day retention ≥ 60%, new-to-salon customers ≥ 30%",money:{year:2028}},
-    {when:"2029",what:"One European city. Partner supplements added",dec:"Review: profitable unit economics in two regions",money:{year:2029}},
-    {when:"2030",what:"Platform ready to scale",dec:"Scale or stop. Partner salon income +10%",key:true,money:{year:2030}},
-    {when:"2031–2035",what:"Key cities in the Gulf countries, Europe and India. Longevity care subscription launched",dec:"Mid-term review in 2033",note:"Professional Products budget if scaled"}
-  ],
+  gantt: {
+    lanes: [
+      {h:"H1", label:"H1 · Core", bars:[
+        {from:[2027,1], to:[2028,4], text:"Beauty Genius tracking, salon toolkit, one-tap reorder"},
+        {from:[2029,1], to:[2030,4], text:"Run by the divisions", faded:true},
+        {from:[2031,1], to:[2035,4], text:"Business as usual", faded:true}]},
+      {h:"H2", label:"H2 · PRO•GO", bars:[
+        {from:[2027,2], to:[2027,4], text:"Pilot, Dubai", money:"€10m (€3m now)"},
+        {from:[2028,1], to:[2028,4], text:"Prove: app, UAE, Riyadh", money:"up to €30m"},
+        {from:[2029,1], to:[2029,4], text:"Extend: Europe", money:"up to €30m"},
+        {from:[2030,1], to:[2030,4], text:"Scale-ready", money:"up to €30m"},
+        {from:[2031,1], to:[2035,4], text:"Scale: Gulf, Europe, India", money:"Division budget"}]},
+      {h:"H3", label:"H3 · New", bars:[
+        {from:[2027,1], to:[2028,4], text:"Longevity concept, Passport review, scanner prototype"},
+        {from:[2029,1], to:[2030,4], text:"Longevity pilot inside PRO•GO"},
+        {from:[2031,1], to:[2035,4], text:"Longevity subscription"}]}
+    ],
+    decisions: [
+      {at:[2027,1.25], text:"Approve €50m"},
+      {at:[2027,4.8], text:"Continue or stop"},
+      {at:[2028,4.8], text:"Retention review"},
+      {at:[2029,4.8], text:"Unit economics"},
+      {at:[2030,4.8], text:"Scale or stop"},
+      {at:[2033,2.5], text:"Mid-term review"}
+    ]
+  },
   ns: [
     {label:"Growth",metric:"Active care subscribers",def:"Customers with an active product subscription linked to a certified professional.",unit:"",v:[300,25000,1000000]},
     {label:"Loyalty",metric:"Repeat-visit rate",def:"Share of PRO•GO customers who book a second treatment within 90 days.",unit:"%",v:[40,60,70]}
@@ -573,6 +609,65 @@ byH.forEach((x) => {
   });
 });
 
+/* 4 risk and reward */
+const NS = "http://www.w3.org/2000/svg";
+const svgEl = (t, a, txt) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (txt != null) e.textContent = txt; return e; };
+const zoomOf = (n) => { const p = n.closest(".panel"); return p && p.style.zoom ? parseFloat(p.style.zoom) : 1; };
+function drawMatrix() {
+  const svg = $("#mx"), tip = $("#tip");
+  if (!svg.getClientRects().length) return;
+  svg.replaceChildren();
+  const L = 40, T = 14, W = 660, H = 370, x = (v) => L + v * W, y = (v) => T + H - v * H;
+  svg.append(svgEl("rect", {x: L, y: T, width: W, height: H, fill: "none", stroke: "var(--hairline)"}),
+    svgEl("line", {x1: x(.5), x2: x(.5), y1: T, y2: T + H, stroke: "var(--hairline)", "stroke-dasharray": "4 4"}),
+    svgEl("line", {x1: L, x2: L + W, y1: y(.5), y2: y(.5), stroke: "var(--hairline)", "stroke-dasharray": "4 4"}));
+  [["Safe bets", L + 10, T + 24, "start"], ["Big bets", L + W - 10, T + 24, "end"], ["Quick wins", L + 10, T + H - 12, "start"], ["Rethink", L + W - 10, T + H - 12, "end"]]
+    .forEach(([t, a, b, an]) => svg.appendChild(svgEl("text", {x: a, y: b, "text-anchor": an, fill: "var(--muted)", "font-family": "var(--serif)", "font-style": "italic", "font-size": 18}, t)));
+  const ax = (t, a, b, an, rot) => svg.appendChild(svgEl("text", {x: a, y: b, "text-anchor": an, fill: "var(--muted)", "font-size": 12, "letter-spacing": "1.6", transform: rot ? `rotate(-90 ${a} ${b})` : ""}, t));
+  ax("RISK →", x(.5), T + H + 32, "middle"); ax("LOW", L, T + H + 32, "start"); ax("HIGH", L + W, T + H + 32, "end"); ax("REWARD →", 16, y(.5), "middle", true);
+  const labels = [];
+  DATA.portfolio.slice().sort((a, b) => b.eur - a.eur).forEach((p) => {
+    const cx = x(p.risk), cy = y(p.rew), r = 9 + Math.sqrt(p.eur) * 6;
+    const g = svgEl("g", {tabindex: 0, role: "img", "aria-label": `${p.name}, ${p.h}, ${eur(p.eur)}`});
+    const c = svgEl("circle", {cx, cy, r, fill: HC[p.h], "fill-opacity": .85, stroke: "var(--paper)", "stroke-width": 2});
+    g.appendChild(c);
+    const t = svgEl("text", {fill: "var(--ink)", "font-size": 15, "font-weight": 600}, `${p.short} · ${eur(p.eur)}`);
+    t._spot = {cx, cy, r};
+    g.appendChild(t); labels.push(t);
+    const show = () => {
+      c.setAttribute("stroke", "var(--ink)"); c.setAttribute("fill-opacity", 1);
+      tip.replaceChildren(el("span", {class: "label"}, `${p.h} · ${HZ[p.h].name} · ${eur(p.eur)}`), el("b", {}, p.name), el("span", {}, "Link to M1: " + p.m1), el("span", {}, "Review target: " + p.gate));
+      tip.hidden = false;
+      const box = $("#mxbox"), sr = svg.getBoundingClientRect(), br = box.getBoundingClientRect(), k = sr.width / 720, z = zoomOf(box);
+      const px = (cx * k + sr.left - br.left) / z + box.scrollLeft, py = (cy * k + sr.top - br.top) / z;
+      tip.style.left = Math.max(4, Math.min(px + 14, box.scrollLeft + br.width / z - tip.offsetWidth - 4)) + "px";
+      tip.style.top = Math.max(4, py - tip.offsetHeight - 12) + "px";
+    };
+    const hide = () => { c.setAttribute("stroke", "var(--paper)"); c.setAttribute("fill-opacity", .85); tip.hidden = true; };
+    g.addEventListener("mouseenter", show); g.addEventListener("focus", show);
+    g.addEventListener("mouseleave", hide); g.addEventListener("blur", hide);
+    svg.appendChild(g);
+  });
+  const circles = labels.map((n) => n._spot);
+  const hit = (b, o) => b.x < o.x + o.width && o.x < b.x + b.width && b.y < o.y + o.height && o.y < b.y + b.height;
+  const placed = [];
+  labels.forEach((n) => {
+    const {cx, cy, r} = n._spot;
+    const spots = [[cx + r + 5, cy + 5, "start"], [cx - r - 5, cy + 5, "end"], [cx, cy - r - 6, "middle"], [cx, cy + r + 16, "middle"], [cx + r + 5, cy - r, "start"], [cx - r - 5, cy - r, "end"], [cx + r + 5, cy + r + 10, "start"], [cx - r - 5, cy + r + 10, "end"]];
+    // score each spot: outside the frame is worst, then overlaps with labels and bubbles; keep the lowest
+    let best = null, bestScore = Infinity, bestSpot = spots[0];
+    for (const sp of spots) {
+      n.setAttribute("x", sp[0]); n.setAttribute("y", sp[1]); n.setAttribute("text-anchor", sp[2]);
+      const b = n.getBBox();
+      const inside = b.x >= L + 2 && b.x + b.width <= L + W - 2 && b.y >= T + 2 && b.y + b.height <= T + H - 2;
+      const score = (inside ? 0 : 100) + placed.filter((o) => hit(b, o)).length * 10 + circles.filter((c) => hit(b, {x: c.cx - c.r, y: c.cy - c.r, width: 2 * c.r, height: 2 * c.r})).length;
+      if (score < bestScore) { bestScore = score; best = b; bestSpot = sp; if (score === 0) break; }
+    }
+    n.setAttribute("x", bestSpot[0]); n.setAttribute("y", bestSpot[1]); n.setAttribute("text-anchor", bestSpot[2]);
+    placed.push(best);
+  });
+}
+
 /* 5 ranking */
 const W = DEF.slice();
 const score = (p, w) => { const tw = w.reduce((a, b) => a + b, 0) || 1; return Math.round(p.sc.reduce((a, v, i) => a + v * w[i], 0) / tw * 10); };
@@ -609,20 +704,48 @@ $("#robust").textContent = nf[0].p.id === "progo"
   ? `With fit to our scenario set to zero, PRO•GO still ranks first (${nf[0].s} against ${nf[1].s}). The ranking does not depend on our own scenario.`
   : `With fit to our scenario set to zero, ${nf[0].p.name} ranks first.`;
 
-/* 5 timeline and funding */
-const pmax = Math.max(...DATA.path.map((x) => x.eur));
-DATA.timeline.forEach((r) => {
-  const tr = el("tr", r.key ? {class: "key"} : {}), dec = el("td", {class: "dec"}), m = el("td", {class: "n"});
-  if (r.dec) { if (r.key) dec.appendChild(el("b", {}, "◆")); dec.appendChild(document.createTextNode(r.dec)); }
-  if (r.money) {
-    const s = DATA.path.find((x) => x.year === r.money.year), bar = el("span", {class: "mbar", "aria-hidden": "true"});
-    const amt = r.money.part === "released" ? s.released : r.money.part === "held" ? s.eur - s.released : s.eur;
-    const i1 = el("i", r.money.part === "released" ? {} : {class: "held"}); i1.style.width = (amt / pmax * 72) + "px"; bar.appendChild(i1);
-    m.append(bar, document.createTextNode(r.money.part === "released" ? `${eur(amt)} now` : r.money.part === "held" ? `${eur(amt)} if targets met` : `up to ${eur(amt)}`));
-  } else if (r.note) m.textContent = r.note;
-  tr.append(el("td", {class: "when"}, r.when), el("td", {}, r.what), dec, m);
-  $("#tlrows").appendChild(tr);
-});
+/* 6 timeline and funding: a simple Gantt chart */
+(function drawGantt() {
+  const svg = $("#gantt"), G = DATA.gantt;
+  const LX = 130, RX = 992, TOP = 44, LANE = 62, U = (RX - LX) / 20;
+  // 2027-2030 by quarter (16 units), 2031-2035 compressed into 4 units
+  const t = ([yr, q]) => yr <= 2030 ? (yr - 2027) * 4 + (q - 1) : 16 + ((yr - 2031) * 4 + (q - 1)) / 20 * 4;
+  const X = (u) => LX + u * U;
+  const bottom = TOP + G.lanes.length * LANE;
+  // header: years, quarters for 2027-2030, shaded alternate years
+  [2027, 2028, 2029, 2030].forEach((yr, i) => {
+    if (i % 2 === 0) svg.appendChild(svgEl("rect", {x: X(i * 4), y: TOP - 4, width: 4 * U, height: bottom - TOP + 8, fill: "var(--ivory)"}));
+    svg.appendChild(svgEl("text", {x: X(i * 4 + 2), y: 16, "text-anchor": "middle", fill: "var(--ink)", "font-size": 14, "font-weight": 600}, String(yr)));
+    for (let q = 0; q < 4; q++) svg.appendChild(svgEl("text", {x: X(i * 4 + q + .5), y: 34, "text-anchor": "middle", fill: "var(--muted)", "font-size": 10}, "Q" + (q + 1)));
+  });
+  svg.appendChild(svgEl("text", {x: X(18), y: 16, "text-anchor": "middle", fill: "var(--ink)", "font-size": 14, "font-weight": 600}, "2031–2035"));
+  svg.appendChild(svgEl("line", {x1: X(16), x2: X(16), y1: 4, y2: bottom + 4, stroke: "var(--hairline)"}));
+  // lanes and bars
+  const onBar = {H1: "var(--on-h1)", H2: "#111111", H3: "var(--on-h3)"};
+  G.lanes.forEach((ln, i) => {
+    const y = TOP + i * LANE;
+    svg.appendChild(svgEl("line", {x1: 0, x2: RX, y1: y + LANE, y2: y + LANE, stroke: "var(--hairline)"}));
+    svg.appendChild(svgEl("text", {x: 0, y: y + LANE / 2 + 5, fill: "var(--ink)", "font-size": 14, "font-weight": 600}, ln.label));
+    ln.bars.forEach((b) => {
+      const x1 = X(t(b.from)), x2 = X(t(b.to) + 1), bh = b.money ? 40 : 30, by = y + (LANE - bh) / 2;
+      svg.appendChild(svgEl("rect", {x: x1 + 1.5, y: by, width: x2 - x1 - 3, height: bh, fill: HC[ln.h], "fill-opacity": b.faded ? .25 : 1}));
+      const clip = "c" + Math.round(x1) + i; const cp = svgEl("clipPath", {id: clip}); cp.appendChild(svgEl("rect", {x: x1 + 4, y: by, width: x2 - x1 - 8, height: bh})); svg.appendChild(cp);
+      const col = b.faded ? "var(--ink)" : onBar[ln.h];
+      svg.appendChild(svgEl("text", {x: x1 + 8, y: by + (b.money ? 16 : 19), fill: col, "font-size": 12, "font-weight": 600, "clip-path": `url(#${clip})`}, b.text));
+      if (b.money) svg.appendChild(svgEl("text", {x: x1 + 8, y: by + 32, fill: col, "font-size": 11, "clip-path": `url(#${clip})`}, b.money));
+    });
+  });
+  // decisions: a diamond and a dashed line through every lane
+  const dy = bottom + 22;
+  svg.appendChild(svgEl("text", {x: 0, y: dy + 5, fill: "var(--gold-text)", "font-size": 12, "font-weight": 600, "letter-spacing": "1.2"}, "DECISIONS"));
+  G.decisions.forEach((d, i) => {
+    const x = X(t([d.at[0], Math.floor(d.at[1])]) + (d.at[1] % 1));
+    svg.appendChild(svgEl("line", {x1: x, x2: x, y1: TOP - 4, y2: dy - 8, stroke: "var(--gold-text)", "stroke-dasharray": "3 4", "stroke-width": 1.2}));
+    svg.appendChild(svgEl("rect", {x: x - 6, y: dy - 6, width: 12, height: 12, fill: "var(--gold-text)", transform: `rotate(45 ${x} ${dy})`}));
+    svg.appendChild(svgEl("text", {x, y: dy + 24 + (i % 2) * 16, "text-anchor": "middle", fill: "var(--ink)", "font-size": 12, "font-weight": 500}, d.text));
+  });
+  svg.setAttribute("viewBox", `0 0 1000 ${dy + 48}`);
+})();
 
 /* 9 peers */
 const rmax = Math.max(...DATA.peers.map((p) => p.rd / p.rev));
@@ -648,6 +771,7 @@ function fit() {
   let lo = MINZ, hi = 1;
   if (apply(lo)) { for (let k = 0; k < 7; k++) { const mid = (lo + hi) / 2; if (apply(mid)) lo = mid; else hi = mid; } }
   apply(lo);
+  if (ids[cur] === "risk") drawMatrix();
 }
 
 /* light / dark switch: follows the device until the reader chooses; the choice is remembered on this browser */
@@ -691,6 +815,7 @@ function show(id, focus) {
   $("#count").textContent = `${i + 1} / ${ids.length}`;
   $("#prog").style.width = (i / (ids.length - 1) * 100) + "%";
   window.scrollTo(0, 0);
+  if (ids[i] === "risk") drawMatrix();
   fit();
   panels[i].querySelectorAll("img").forEach((im) => { if (!im.complete) im.addEventListener("load", fit, {once: true}); else if (im.decode) im.decode().then(fit, () => {}); });
   if (focus) panels[i].focus({preventScroll: true});
