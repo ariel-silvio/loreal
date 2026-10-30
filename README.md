@@ -3,7 +3,15 @@
 Team D's M2 deliverable for Corporate Entrepreneurship (IE Executive MBA, Prof. Daniel Medina). We act as L'Oréal Groupe's innovation team and ask the CEO to approve a €50m innovation budget for 2027.
 
 - **Live page:** https://ariel-silvio.github.io/loreal/ (GitHub Pages, branch `main`, folder `/`)
-- **The whole site is one file:** `index.html`. CSS, JavaScript, data and photos are all inside it.
+- **Files:**
+
+| File | What's in it | Who edits it |
+|---|---|---|
+| `index.html` | All the words on the slides, and the sidebar | Anyone |
+| `js/data.js` | All numbers and initiative details | Anyone |
+| `css/styles.css` | Brand kit colours, fonts and layout | Rarely |
+| `js/app.js` | Charts, tables, slide navigation, fit to screen, light/dark switch | Only to change how the page works |
+| `images/` | Scenario image and team photos | Replace a file, keeping the same name |
 
 ## The page in one minute
 
@@ -25,18 +33,18 @@ Eleven slides, one at a time. Readers move with the sidebar, the Previous/Next b
 
 ## How to edit
 
-Open `index.html` in a code editor (VS Code works well). Some lines hold photos as very long text, so turn off word wrap and don't edit those lines.
+Open the folder in a code editor (VS Code works well). To see the result, open `index.html` in a browser and reload after each change.
 
 **To change words,** search for the sentence and edit it in place. Each slide is a `<section class="panel" id="…">` block, in the order of the table above.
 
-**To change a number,** edit the `const DATA = {` block near the bottom of the file. Don't type numbers into the text. These are calculated from `DATA` and update everywhere on their own:
+**To change a number,** edit `js/data.js`. Don't type numbers into `index.html`. These are calculated from `DATA` and update everywhere on their own:
 
 - the €50m total, the €25m / €15m / €10m split and the "check" line
 - the 0.11% of sales and the R&D percentages
 - the ranking scores and the "scenario fit = 0" result
 - €3m now and €7m held
 
-`DATA` holds:
+`js/data.js` holds:
 
 - `portfolio`: the nine initiatives, with amount, horizon, M1 link, review target, risk/reward position, the five scores and the details shown when a row is clicked
 - `path` and `gantt`: PRO•GO funding stages and the timeline bars and decision points
@@ -45,9 +53,11 @@ Open `index.html` in a code editor (VS Code works well). Some lines hold photos 
 - `signals`: the three numbers on "Why now"
 - `ns`: the two headline measures (300 subscribers, 40% repeat visits)
 
+**To change a photo,** replace the file in `images/` with a JPG of the same name. Team photos look best square.
+
 **To add a slide,** copy a `<section class="panel">` block, give it a new `id`, and add a matching link in the sidebar (`<div class="chapters">`). The Previous/Next buttons pick it up on their own.
 
-**Colours, fonts and dark mode** come from the Team D Brand Kit. They're set once as variables at the top of the `<style>` block (`--ink`, `--gold`, `--h1`…). Change a variable there, never a colour inside a rule. The light/dark button and the screen-height fitting work on their own.
+**Colours, fonts and dark mode** come from the Team D Brand Kit. They're set once as variables at the top of `css/styles.css` (`--ink`, `--gold`, `--h1`…). Change a variable there, never a colour inside a rule. The light/dark button and the screen-height fitting work on their own.
 
 ## Rules for the content
 
@@ -64,8 +74,8 @@ These keep the page consistent with M1, the Miro board and the brand kit.
 
 - **Before editing:** pull the latest version. In GitHub Desktop, use "Fetch origin" then "Pull".
 - **Keep commits small,** with a clear message ("Timeline: move pilot start to Q3").
-- **Tell the team in the group chat** before a big change, so two people don't rewrite the same slide at once. Everything is in one file, so parallel edits to the same area will conflict.
-- **Check it before pushing:** open `index.html` in a browser, page through all slides, try dark mode, and make the window narrow like a phone.
+- **Tell the team in the group chat** before a big change, so two people don't rewrite the same slide at once. Two people editing the same slide or the same lines of `js/data.js` at once will conflict.
+- **Check it before pushing:** open `index.html` in a browser (keep it in the folder, since it needs `css/`, `js/` and `images/`), page through all slides, try dark mode, and make the window narrow like a phone.
 - `main` is what the live page shows. A push to `main` is live within a minute or two.
 
 ## Open items
