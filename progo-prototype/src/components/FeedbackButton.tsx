@@ -7,17 +7,14 @@ export function feedbackUrl(params: Record<string, string> = {}) {
   return url.toString();
 }
 
+const base = 't-label inline-flex min-h-11 items-center gap-2 border px-4';
+
 export function FeedbackButton({ persona = 'customer' }: { persona?: string }) {
   if (!feedbackReady()) {
-    return (
-      <button type="button" disabled className="min-h-11 rounded-full border border-line px-4 text-xs text-muted">
-        Form link coming soon
-      </button>
-    );
+    return <button type="button" disabled className={`${base} border-hairline text-muted`}>Form link coming soon</button>;
   }
   return (
-    <a href={feedbackUrl({ persona })} target="_blank" rel="noopener noreferrer"
-      className="inline-flex min-h-11 items-center gap-2 rounded-full border border-ink px-4 text-xs font-medium">
+    <a href={feedbackUrl({ persona })} target="_blank" rel="noopener noreferrer" className={`${base} border-ink text-ink`}>
       <MessageSquare size={14} aria-hidden /> Give feedback
     </a>
   );

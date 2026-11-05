@@ -1,21 +1,47 @@
 @import 'tailwindcss';
 @import './tokens.css';
 
+/* Brand kit: square corners and no shadows, so the default radius scale is reset to 0
+   (rounded-full stays available for avatars only). */
 @theme {
+  --color-*: initial;
   --color-ink: var(--ink);
-  --color-ivory: var(--ivory);
   --color-paper: var(--paper);
+  --color-ivory: var(--ivory);
+  --color-muted: var(--muted);
+  --color-hairline: var(--hairline);
   --color-gold: var(--gold);
   --color-gold-text: var(--gold-text);
-  --color-rouge: var(--rouge);
-  --color-navy: var(--navy);
-  --color-ok: var(--ok);
+  --color-h1: var(--h1);
+  --color-h2: var(--h2);
+  --color-h3: var(--h3);
+  --color-neutral-series: var(--neutral-series);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-source-note: var(--source-note);
   --color-warn: var(--warn);
-  --color-bad: var(--bad);
-  --color-muted: var(--muted);
-  --color-line: var(--line);
-  --font-serif: 'Bodoni Moda', Georgia, serif;
-  --font-sans: 'Jost', system-ui, sans-serif;
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+
+  --radius-*: initial;
+  --radius-full: var(--radius-pill);
+
+  --font-serif: 'Bodoni Moda', Didot, Georgia, serif;
+  --font-sans: 'Jost', Futura, system-ui, sans-serif;
+}
+
+@layer components {
+  /* Kit type styles */
+  .t-display { font-family: var(--font-serif); font-size: 56px; line-height: 60px; font-weight: 500; }
+  .t-headline { font-family: var(--font-serif); font-size: 32px; line-height: 38px; font-weight: 500; }
+  .t-quote { font-family: var(--font-serif); font-size: 20px; line-height: 28px; font-weight: 400; }
+  .t-label { font-size: 11px; line-height: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.15em; }
+  .t-card-title { font-size: 14px; line-height: 18px; font-weight: 600; }
+  .t-card-body { font-size: 12px; line-height: 17px; font-weight: 400; }
+  .t-kpi { font-size: 40px; line-height: 44px; font-weight: 500; }
+  .t-source { font-size: 10px; line-height: 13px; font-weight: 400; }
+  /* Signature detail: one thin gold rule under a headline */
+  .gold-rule { display: block; width: 48px; height: 2px; background: var(--gold); }
 }
 
 html, body, #root { height: 100%; }
@@ -26,4 +52,4 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
-:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }

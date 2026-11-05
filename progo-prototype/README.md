@@ -30,7 +30,7 @@ Menu (top right) → **Reset demo**. Clears `localStorage` and returns to S1.
 | What | File |
 |---|---|
 | Feedback form URL, exchange rate, pilot communities | `src/config.ts` |
-| Colours, radius | `src/styles/tokens.css` |
+| Colours, radius, spacing (Team D Brand Kit v2.1) | `src/styles/tokens.css` |
 | Screen titles and side-panel text | `src/screens/registry.ts` |
 | Mock data (Phase 1) | `src/data/mock.ts` |
 

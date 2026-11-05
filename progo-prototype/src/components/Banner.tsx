@@ -10,16 +10,16 @@ export function Banner() {
     window.location.reload();
   };
   return (
-    <div className="sticky top-0 z-20 flex items-center justify-between bg-ink px-3 text-ivory">
-      <span className="py-2 text-[11px] font-medium uppercase tracking-[0.14em]">Prototype, simulated data</span>
+    <div className="sticky top-0 z-20 flex items-center justify-between border-b border-gold bg-ink pl-4 text-paper">
+      <span className="t-label py-2">Prototype, simulated data</span>
       <button type="button" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        className="flex h-11 w-11 items-center justify-center rounded-full">
+        className="flex h-11 w-11 items-center justify-center focus-visible:outline-paper">
         {open ? <X size={18} aria-hidden /> : <Menu size={18} aria-hidden />}
       </button>
       {open && (
-        <div className="absolute right-2 top-11 w-48 rounded-xl border border-line bg-paper p-1 text-ink shadow-lg">
-          <button type="button" onClick={reset} className="min-h-11 w-full rounded-lg px-3 text-left text-sm hover:bg-ivory">
+        <div className="absolute right-2 top-11 w-48 border border-hairline bg-paper text-ink">
+          <button type="button" onClick={reset} className="min-h-11 w-full px-4 text-left text-sm hover:bg-ivory">
             Reset demo
           </button>
         </div>
