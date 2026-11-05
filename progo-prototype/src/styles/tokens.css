@@ -1,0 +1,17 @@
+/* Default tokens from the handoff (section 9). Replace with Team D Brand Kit values when supplied. */
+:root {
+  --ink: #0B0B0B;
+  --ivory: #F7F2E8;
+  --paper: #FFFFFF;
+  --gold: #B8975A;
+  --gold-text: #7A5F2E; /* darker gold for text on ivory (AA contrast) */
+  --rouge: #A31621;
+  --navy: #1B2A49;
+  --ok: #2E7D32;
+  --warn: #B26A00;
+  --bad: #B3261E;
+  --muted: #5C564C;
+  --line: #E4DCCB;
+  --radius: 16px;
+  --space: 8px;
+}

@@ -1,0 +1,53 @@
+# Builds the PRO•GO prototype (progo-prototype/) into progo/, which the existing
+# GitHub Pages site (branch main, folder /) serves at /loreal/progo/.
+# On pull requests and other branches: typecheck + build only (quality gate).
+# On main: also commits a fresh progo/ if it is out of date.
+name: PRO•GO prototype build
+
+on:
+  push:
+    paths: ['progo-prototype/**', '.github/workflows/progo-build.yml']
+  pull_request:
+    paths: ['progo-prototype/**', '.github/workflows/progo-build.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: progo-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: progo-prototype
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: progo-prototype/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build
+      - name: Claims guardrail (section 14.5)
+        run: |
+          if grep -rIiE "proven|clinically|guarantee|\bcure[sd]?\b|L'Or.al logo" ../progo --include=*.html --include=*.js; then
+            echo "Forbidden wording found in build output"; exit 1; fi
+      - name: Commit rebuilt progo/ on main
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        working-directory: .
+        run: |
+          if [ -n "$(git status --porcelain progo)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+            git add progo
+            git commit -m "Rebuild PRO•GO prototype"
+            git push
+          else
+            echo "progo/ is up to date"
+          fi
