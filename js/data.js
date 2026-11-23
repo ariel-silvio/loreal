@@ -59,8 +59,8 @@ const DATA = {
   ],
   peers: [
     {company:"L'Oréal",period:"2025",cur:"€",rev:44050,rd:1380,src:"2025 results; 2025 URD",us:true,where:"Beauty tech, AI diagnostics, biotech, green sciences"},
-    {company:"Unilever",period:"2025",cur:"€",rev:50500,rd:836,src:"FY2025 results; R&D page (excl. Ice Cream)",where:"Microbiome, biotech, digital product design; new $270m innovation centre"},
-    {company:"Estée Lauder",period:"Year to June 2025",cur:"$",rev:14326,rd:316,src:"Form 10-K FY2025",where:"New products, packaging, dermatology and university partnerships"},
+    {company:"Unilever",period:"2025",cur:"€",rev:50500,rd:836,src:"FY2025 results; R&D page (excl. Ice Cream)",where:"Microbiome, biotech, digital product design; new ≈ €235m innovation centre"},
+    {company:"Estée Lauder",period:"Year to June 2025",cur:"€",rev:12457,rd:275,src:"Form 10-K FY2025 ($14,326m sales, $316m R&D; $1.15 = €1)",where:"New products, packaging, dermatology and university partnerships"},
     {company:"Beiersdorf",period:"2025",cur:"€",rev:9852,rd:365,src:"Annual Report 2025 (incl. tesa)",where:"Epigenetics, pigmentation, skin microbiome, AI skin analysis"}
   ],
   signals: [

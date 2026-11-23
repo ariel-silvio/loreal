@@ -86,7 +86,7 @@ These keep the page consistent with M1, the Miro board and the brand kit.
 
 ## Open items
 
-- **2028 total budget:** placeholder `<!-- TEAM: confirm 2028 total budget figure -->` on the Budget slide.
+- **Budget after 2027:** envelope €50m → €70m → €85m → €100m (up to €305m) is on the Budget slide as a Team D proposal, matching the Miro board (M2 step 1).
 - **Timeline dates:** "Q1 2027: unit and Board set up" and "Q3 2027: first results" are Team D's proposal. Confirm, or change if the team expects approval in December 2026.
 - **M1 link labels:** two are not M1's top three drivers. Salon digital toolkit says "Salons as hubs in the scenario", and Branded residence partners says "Service-led living".
 - **To verify:** Jean-Paul Agon's current role as Chairman. The latest source found is the 2025 annual report.
